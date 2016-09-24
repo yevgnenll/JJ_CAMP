@@ -18,6 +18,7 @@
 
 
 (function(){
+    var html = document.documentElement;
     var detect_classes ={
         // class, 조건
         'mobile': 800,
@@ -27,40 +28,43 @@
     };
 
     function init(){
-        check_device();
-        window.addEventListener('resize', function(){
-            check_device();
-        });
+        detect_device_type();
     };
 
-    function check_device(){
+    function detect_device_type(){
         var device_width = window.innerWidth;
-        var root = document.documentElement;
-        console.log('start init', device_width);
+        var type = null;
+        var current_class = html.classList;
         switch(true){
             case (device_width <= detect_classes['mobile']):
-                console.log('mobile', device_width, detect_classes.mobile);
-                root.classList.add('mobile');
+                html.classList.remove(current_class);
+                html.classList.add('mobile');
+                type = 'mobile';
                 break;
             case (device_width <= detect_classes.tablet):
-                root.classList.add('tablet');
-                console.log('tablet', device_width, detect_classes.tablet);
+                html.classList.remove(current_class);
+                html.classList.add('tablet');
+                type = 'tablet';
                 break;
             case (device_width <= detect_classes.desktop):
-                root.classList.add('desktop');
-                console.log('desktop', device_width, detect_classes.desktop);
+                html.classList.remove(current_class);
+                html.classList.add('desktop');
+                type = 'desktop';
                 break;
             default:
-                root.classList.add('wide');
-                console.log('wide', device_width);
+                html.classList.remove(current_class);
+                html.classList.add('wide');
+                type = 'wide';
                 break;
         }
+        return type;
     };
 
+    
+
     function class_text(){
-        var root = document.documentElement;
     };
 
     window.onload = init();
+    window.onresize = assign_class_detection();
 })();
-

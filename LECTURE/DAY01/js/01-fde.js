@@ -26,32 +26,30 @@
         // DOM API
         // ~ 앞에 삽입
         // 목표노드.부모노드.insertBefore(삽입노드, 목표노드);
-        target_p.parentNode.insertBefore(headline, target_p);
-
-        // 1. 추가할 노드 만들기
+        setTimeout(function(){
+            target_p.parentNode.insertBefore(headline, target_p);
+        },500);
         var add_ul = document.createElement('ul');
-        var array_list = make_list(add_ul, ['IOT', 'VR', 'AI']);
+        setTimeout(function(){
+            var array_list = make_list(add_ul, ['IOT', 'VR', 'AI']);
+            target_p.parentNode.insertBefore(array_list, target_p.nextSibling);
 
-        target_p.parentNode.insertBefore(array_list, target_p.nextSibling);
+        },1000);
 
-        var categories = 'IOT VR IT'.split(' ');
-        // modern ES5 shim JS Library -> 중단 불가
-        categories.forEach(function(item, index){
-            // <li>item</li>
-            var li = document.createElement('li');
-            var li_content = document.createTextNode(item);
-            li.appendChild(li_content);
-            // <ul>요소 내부에 삽입
+        setTimeout(function(){
+            var categories = 'IOT VR IT'.split(' ');
+            // modern ES5 shim JS Library -> 중단 불가
+            categories.forEach(function(item, index){
+                // <li>item</li>
+                var li = document.createElement('li');
+                var li_content = document.createTextNode(item);
+                li.appendChild(li_content);
+                // <ul>요소 내부에 삽입
 
-            add_ul.appendChild(li);
-        });
-        body.appendChild(add_ul);
-
-        // legacy -> 중단 불가
-        var a = 0, l = categories.length;
-        for( ; a<l; a++){
-            console.log(categories[a], a);
-        }
+                add_ul.appendChild(li);
+            });
+            body.appendChild(add_ul);
+        },2000);
 
     };
 

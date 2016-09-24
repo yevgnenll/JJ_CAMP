@@ -4,31 +4,13 @@
 
         // var body = document.getElementsByTagName('body').item(0); // XML DOM 방식
         var body = document.body;
-        // 1. 문서에서 단락 요소를 찾아 변수에 참조한다
         var target_p ;
         target_p = document.getElementsByTagName('p').item(0);
-         // h1 요소를 생성하고
-         // text 내용으로 Javascript Log라는 텍스트를 동적으로 생성한다
-         // 단계 1.
-        var headline = document.createElement('h1');
-        var headline_content = document.createTextNode('Javascript Log');
-
-        // 생성된 각 노드 검증
-        // console.log('headline', headline);
-        // console.log('headline content', headline_content);
-        // headline -> parent , headline_content -> child
-        // DOM API의 appendChild 사용
-        // 단계 2.
-        headline.appendChild(headline_content);
-        // 합쳐진 노드 검증
-        // console.log('headline', headline);
-        // 단계 3.
-        // DOM API
-        // ~ 앞에 삽입
-        // 목표노드.부모노드.insertBefore(삽입노드, 목표노드);
-        setTimeout(function(){
-            target_p.parentNode.insertBefore(headline, target_p);
-        },500);
+        window.setTimeout(function(){
+            createHeadline('h1', 'Javascript Log', target_p);
+        }, 2000);
+        
+                
         var add_ul = document.createElement('ul');
         setTimeout(function(){
             var array_list = make_list(add_ul, ['IOT', 'VR', 'AI']);
@@ -62,6 +44,22 @@
         }
 
         return node;
+    };
+
+    function createHeadline(h_lv, content, target){
+        
+        if( typeof h_lv !== 'string'){ throw new Error('첫 번째 인자는 문자열이여야 한다.'); }
+        if( typeof content !== 'string'){ throw new Error('두 번째 인자는 문자열이여야 한다.'); }
+        if( target && target.nodeType !== 1){ throw new Error('세 번째 인자는 문자열이여야 한다.'); }
+         
+        var headline = document.createElement(h_lv);
+        var headline_content = document.createTextNode(content);
+        headline.appendChild(headline_content);
+        
+        if( target )
+            target.parentNode.insertBefore(headline, target);
+
+        return headline;
     };
 
     window.onload = init();

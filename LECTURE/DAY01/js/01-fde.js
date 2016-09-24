@@ -10,29 +10,10 @@
             createHeadline('h1', 'Javascript Log', target_p);
         }, 2000);
         
-                
-        var add_ul = document.createElement('ul');
+        var ul = document.createElement('ul');
         setTimeout(function(){
-            var array_list = make_list(add_ul, ['IOT', 'VR', 'AI']);
-            target_p.parentNode.insertBefore(array_list, target_p.nextSibling);
-
-        },1000);
-
-        setTimeout(function(){
-            var categories = 'IOT VR IT'.split(' ');
-            // modern ES5 shim JS Library -> 중단 불가
-            categories.forEach(function(item, index){
-                // <li>item</li>
-                var li = document.createElement('li');
-                var li_content = document.createTextNode(item);
-                li.appendChild(li_content);
-                // <ul>요소 내부에 삽입
-
-                add_ul.appendChild(li);
-            });
-            body.appendChild(add_ul);
-        },2000);
-
+            createUlList(ul, 'IOT VR AI IT', body);
+        },4000);
     };
 
     function make_list(node, lists){
@@ -50,7 +31,7 @@
         
         if( typeof h_lv !== 'string'){ throw new Error('첫 번째 인자는 문자열이여야 한다.'); }
         if( typeof content !== 'string'){ throw new Error('두 번째 인자는 문자열이여야 한다.'); }
-        if( target && target.nodeType !== 1){ throw new Error('세 번째 인자는 문자열이여야 한다.'); }
+        if( target && target.nodeType !== 1){ throw new Error('세 번째 인자는 노드여야 한다.'); }
          
         var headline = document.createElement(h_lv);
         var headline_content = document.createTextNode(content);
@@ -60,6 +41,24 @@
             target.parentNode.insertBefore(headline, target);
 
         return headline;
+    };
+
+    function createUlList(ul_node, contents_string_with_blank, target){
+
+        if( ul_node && ul_node.nodeType !== 1){ throw new Error('첫 번째 인자는 노드여야 한다'); }        
+        if ( typeof contents_string_with_blank !== 'string'){ throw new Error('두 번째 인자는 문자열이여야 한다.'); }
+        if( target && target.nodeType !== 1){ throw new Error('세 번째 인자는 노드여야 한다.'); }
+
+        var lists = contents_string_with_blank.split(' ');
+        lists.forEach(function(item, index){
+            var li = document.createElement('li');
+            var li_content = document.createTextNode(item);
+            li.appendChild(li_content);
+            ul_node.appendChild(li);
+        });
+        target.appendChild(ul_node);
+
+        return ul_node;
     };
 
     window.onload = init();

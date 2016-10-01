@@ -74,6 +74,8 @@
     }
 
     function assignClassNameHtml(class_name){
+        if(typeof class_name !== 'string')
+            throw new Error('문자열 인자가 들어와야 합니다');
         var html = document.documentElement;
         html.className += (isHaveClass() ? ' ' : '') + class_name;
     }
@@ -82,8 +84,7 @@
     var len_devices = checking_device.length;
 
     while(len_devices){
-        len_devices -= 1;
-        detectDevice(checking_device[len_devices]);
+        detectDevice(checking_device[len_devices -= 1]);
         console.log(checking_device[len_devices]);
     }
 

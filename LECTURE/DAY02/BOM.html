@@ -5,7 +5,33 @@
     <title>BOM : 웹 브라우저를 구성하는 객체들의 관계(Model)</title>
 </head>
 <body>
-    
+   <!-- 
     <script src="BOM.js"></script>
+    -->
+    <ul id="demo-nav">
+        <li><a href="">home</a></li>
+        <li><a href="">about</a></li>
+        <li><a href="">portfolio</a></li>
+        <li><a href="">contact</a></li>
+    </ul>
+    <script src="BOM-2.js"></script>
+    <script>
+        var demo_nav = document.getElementById('demo-nav');
+        var demo_nav_links = demo_nav.getElementsByTagName('a');
+
+        var linkOnClick = function(i){
+
+            return function(){
+                console.log(i);
+                return false;
+            }
+        };
+
+        for(var i=0, l=demo_nav_links.length; i<l; i++){
+            var link = demo_nav_links[i];
+            link.onclick = linkOnClick(i);
+        };
+    </script>
+    <script src="closure.js"></script>
 </body>
 </html>

@@ -100,7 +100,19 @@
         }
     };
 
-    
+    var checking_device = 'ios iemobile kindle iphone ipad android nexus sm-g';
+    loopDetectDevices(checking_device);
+
+    var geo = navigator.geolocation;
+    geo.getCurrentPosition(geoSuccess, geoFail);
+
+    function geoSuccess(position){
+        console.log('지도 위도/경도 좌표 가져오기 성공!',  position);
+    };
+
+    function geoFail(error){
+        console.log('좌표 가져오기 실패!!', error);
+    };
 
 
 })();

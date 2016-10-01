@@ -78,6 +78,13 @@
         html.className += (isHaveClass() ? ' ' : '') + class_name;
     }
 
-    console.log(detectDevice('iphone'));
+    var checking_device = 'iemobile kindle iphone ipad android nexus sm-g'.split(' ');
+    var len_devices = checking_device.length;
+
+    while(len_devices){
+        len_devices -= 1;
+        detectDevice(checking_device[len_devices]);
+        console.log(checking_device[len_devices]);
+    }
 
 })();

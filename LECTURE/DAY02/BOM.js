@@ -70,39 +70,37 @@
 
     function isHaveClass(){
         var html = document.documentElement;
-        return html !== '';
+        return html.className !== '';
     }
 
     function assignClassNameHtml(class_name){
         if(typeof class_name !== 'string')
             throw new Error('문자열 인자가 들어와야 합니다');
         var html = document.documentElement;
+        console.log('isHaveClass', isHaveClass(), ', html className', html.className);
         html.className += (isHaveClass() ? ' ' : '') + class_name;
     }
 
     function loopDetectDevices(checking_devices){
-        var is_string = typeof checking_devices !== 'string';
-        // array or string?
-        // checking_devices is exist or not
-        // 문자라면 처리
+        var is_string = typeof checking_devices === 'string';
+
         if( !checking_devices ){ throw new Error('전달인자는 필수입니다');}
-        // typeof null or typeof [] -> objects
-        // [] instanceof Array === [] instanceof Object 이런 약점이 있다
-        if( !is_string || !(checking_devices instanceof Array))
+
+        if( !is_string && !(checking_devices instanceof Array))
             throw new Error('전달인자는 문자 또는 배열만 가능합니다');
         if(is_string){
-            // 문자 -> 배열로 변환
             checking_devices = checking_devices.split(' ');
         }
 
-        var len_devices = checking_device.length;
+        var len_devices = checking_devices.length;
 
         while(len_devices){
-            detectDevice(checking_device[len_devices -= 1]);
-            console.log(checking_device[len_devices]);
+            detectDevice(checking_devices[len_devices -= 1]);
+            console.log(checking_devices[len_devices]);
         }
     };
 
-    var checking_device = 'ios iemobile kindle iphone ipad android nexus sm-g'.split(' ');
+    
+
 
 })();

@@ -80,12 +80,29 @@
         html.className += (isHaveClass() ? ' ' : '') + class_name;
     }
 
-    var checking_device = 'iemobile kindle iphone ipad android nexus sm-g'.split(' ');
-    var len_devices = checking_device.length;
+    function loopDetectDevices(checking_devices){
+        var is_string = typeof checking_devices !== 'string';
+        // array or string?
+        // checking_devices is exist or not
+        // 문자라면 처리
+        if( !checking_devices ){ throw new Error('전달인자는 필수입니다');}
+        // typeof null or typeof [] -> objects
+        // [] instanceof Array === [] instanceof Object 이런 약점이 있다
+        if( !is_string || !(checking_devices instanceof Array))
+            throw new Error('전달인자는 문자 또는 배열만 가능합니다');
+        if(is_string){
+            // 문자 -> 배열로 변환
+            checking_devices = checking_devices.split(' ');
+        }
 
-    while(len_devices){
-        detectDevice(checking_device[len_devices -= 1]);
-        console.log(checking_device[len_devices]);
-    }
+        var len_devices = checking_device.length;
+
+        while(len_devices){
+            detectDevice(checking_device[len_devices -= 1]);
+            console.log(checking_device[len_devices]);
+        }
+    };
+
+    var checking_device = 'ios iemobile kindle iphone ipad android nexus sm-g'.split(' ');
 
 })();

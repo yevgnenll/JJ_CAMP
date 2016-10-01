@@ -21,15 +21,16 @@
 
         var linkOnClick = function(i){
 
-            return function(){
-                console.log(i);
-                return false;
-            }
         };
 
         for(var i=0, l=demo_nav_links.length; i<l; i++){
             var link = demo_nav_links[i];
-            link.onclick = linkOnClick(i);
+            link.onclick = (function(idx){
+                return function(){
+                    console.log(idx);
+                    return false;
+                };
+            })(i);
         };
     </script>
     <script src="closure.js"></script>

@@ -49,6 +49,15 @@
         }
     }
     console.log('filtered_el_list:', filtered_el_list);
+
+    var node_collection = document.body.childNodes;
+    var node_els = [];
+    for(var node, i=node_collection.length; (node=node_collection[--i]); ){
+        if(node.nodeType === document.ELEMENT_NODE){
+            node_els.push(node);
+        }
+    }
+    console.log('node_els:', node_els);
     </script>
 </body>
 </html>

@@ -33,10 +33,16 @@ function init(){
     console.log(html);
     console.log(head);
     console.log(body); // 만약 script가 head안에 있다면 null 에러가 나타난다
-    body.setAttribute('class', 'dom-modern-method'); // 에러가 나온다 왜냐하면 array안에 있으므로
+    // body.setAttribute('class', 'dom-modern-method'); // 에러가 나온다 왜냐하면 array안에 있으므로
     // setAttribute가 권장방식이다(form은 className을 권장한다)
-    // body.setAttribute('class', 'dom-modern-method').item(0); // 이 코드가 맞다
+    body.item(0).setAttribute('class', 'dom-modern-method'); // 이 코드가 맞다
     // body[0].setAttribute('class', 'dom-modern-method'); // 이 방법도 가능하지만 body가 여러개있다는 혼란을 줄 수 있다
+    // lv 1방식
+    var first_a = document.getElementsByTagName('a').item(0);
+    var second_a = document.getElementsByTagName('a').item(1);
+    // lv 4 방식
+    console.log(first_a, second_a);
+
 }
 window.onload = init; // load 권장하는 이벤트는 아님 -> 이미지가 다 뜨고나서 나옴
 // DOMcontentLoaded 이벤트 (이미지 로드와 상관 없이 이벤트 발생)

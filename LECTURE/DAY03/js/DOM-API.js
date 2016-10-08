@@ -12,9 +12,9 @@ document.getElementsByTagName();
 
 현재 dom level 4
 */
-/*
- *
- *
+/* 문서 노드에 접근
+ * 요소 노드
+ * text노드(빈 공백, 들여쓰기, 탭..)
  */
 
 function init(){
@@ -37,11 +37,16 @@ function init(){
     // setAttribute가 권장방식이다(form은 className을 권장한다)
     body.item(0).setAttribute('class', 'dom-modern-method'); // 이 코드가 맞다
     // body[0].setAttribute('class', 'dom-modern-method'); // 이 방법도 가능하지만 body가 여러개있다는 혼란을 줄 수 있다
-    // lv 1방식
+    // lv 1방식(내가 한거)
     var first_a = document.getElementsByTagName('a').item(0);
     var second_a = document.getElementsByTagName('a').item(1);
+    // 선생님 방법
+    var target_node = document.getElementsByTagName('h3').item(0);
+    var target_node_first_child = target_node.firstChild;
+    var target_node_last_child = target_node.lastChild;
+    console.log('target_node_first_child', target_node_first_child);
+    console.log('target_node_last_child', target_node_last_child);
     // lv 4 방식
-    console.log(first_a, second_a);
 
 }
 window.onload = init; // load 권장하는 이벤트는 아님 -> 이미지가 다 뜨고나서 나옴

@@ -56,6 +56,17 @@
     console.log(hyperlink, row, container_h3_2, col_sixes);
     console.log(container_h3_2, container_h3_2_under);
     
+    isValidate('flex' in container.style, function(){
+        container.classList.add('support-flex');
+    }, function(){
+        container.classList.add('not-support-flex');
+    });
+
+    isValidate('grid' in container.style, function(){
+        container.classList.add('support-grid');
+    }, function(){
+        container.classList.add('not-support-grid');
+    });
 
     </script>
 </body>

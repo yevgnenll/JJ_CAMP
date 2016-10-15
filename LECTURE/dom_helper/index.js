@@ -115,6 +115,35 @@ function isElement(node){
 /* @function detectFeature 
  * 이 기능이 브라우저에서 사용 가능한건가?
  * */
+// 클로져
+var detectFeatures = (function(){
+
+    var el = null;
+    var prop = null;
+    var root_element = document.documentElement;
+
+    function success(){
+        el.classList.add(prop);
+    };
+
+    function fail(){
+        el.classList.add('no-' + prop);
+    };
+    function _detectFeature(properties, element){
+
+        el = (el && isElement(element)) || root_element;
+        validate( !isArray(properties), 'properties는 배열 유형이어야 합니다.');
+        for( var property, i=properties.length; (property = properties[--i]);){
+            prop = property
+            isValidate(detectFeature(property), success, fail);
+        }
+    }
+
+    return _detectFeature;
+
+}());
+
+
 function detectFeature(property, element){
     // element = element || detectFeature.dummy;
     // validate( !isElement(element), '문서 요소 객체가 아닙니다');
@@ -124,9 +153,12 @@ function detectFeature(property, element){
 
     return property in detectFeature.dummy.style;
 }
+detectFeature.dummy = document.createElement('div');
+/*
+ * 메모리제이션
 
 // 한가지 ele만 체크하면 문제가 되지 않는것인가?
-detectFeature.dummy = document.createElement('div');
+
 
 // modernizer login
 function detectFeatures(properties, element){
@@ -134,7 +166,7 @@ function detectFeatures(properties, element){
     validate( !isArray(properties), 'properties는 배열 유형이어야 합니다.');
 
     for( let property, i=properties.length; (property = properties[--i]);){
-        detectFeatures.property = property
+        detectFeatures.property = property;
         isValidate(detectFeature(property), detectFeatures.success, detectFeatures.fail);
     }
 }
@@ -149,3 +181,4 @@ detectFeatures.fail = function(){
 }
 detectFeatures.element = null;
 detectFeatures.property = null;
+*/

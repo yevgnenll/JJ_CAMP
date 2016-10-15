@@ -36,25 +36,16 @@
     <script src="js/DOM-Traversal.js"></script>
     -->
     <script>
-    var col_six = document.getElementsByClassName('col-6');
-    console.log('col_six', col_six,'length', col_six.length);
-    document.onclick = function(event) {
-        // console.log(event.target.nodeName === 'IMG'); // 내가 원하는 클릭을 잡아 부모에게 전달이 가능하다
-        console.log(event.target.nodeName.toLowerCase()); //nodeName -> h3, div 같은거
-        console.log(event.target.nodeValue);
-    }
-    // IE 8+
-    var hyperlink = query('a');
-    var row = query('.container .row');
-
-    var container = query('.container');
-
-    // IE 9+
-    var container_h3_2 = query('.container h3:nth-of-type(2)');
-    var container_h3_2_under = container.querySelector('h3:nth-of-type(2)');
-    var col_sixes = document.querySelectorAll('.col-6');
-    console.log(hyperlink, row, container_h3_2, col_sixes);
-    console.log(container_h3_2, container_h3_2_under);
+    detectFeatures([
+        'margin',
+        'padding',
+        'transform-origin',
+        'transform-3d',
+        'flex',
+        'flex-direction',
+        'flex-flow',
+        'order'
+    ]);
 
     </script>
 </body>

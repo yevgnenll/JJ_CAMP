@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM API</title>
+    <script src="../dom_helper/index.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <!-- 마크업 사례 1 -->
+                <h3><a href="http://yevgnenll.me">column</a><a name="">umn</a></h3>
+                <!-- 마크업 사례 2 탐색이 발전되지 못했던 이유 -->
+                <h3>
+                    <a href="http://yevgnenll.me">column</a>
+                    <a name="">umn</a>
+                </h3>
+                <img src="http://placehold.it/400x200/000/fff" alt="더미">
+                <div role='img' aria-label='배경이미지 설명'></div> <!-- role -->
+                <!-- 사라짐
+                <h3><a name="http://yevgnenll.me">column</a></h3>
+                -->
+                <form action=""><input type="text"></form>
+            </div>
+            <div data-custom-attr='this is custom data attribute' id="element" class="col-6 hi"></div>
+            <div class="col-6 there"></div>
+            <div class="col-6 code"></div>
+            <div class="col-6 ciga"></div>
+            <div class="col-6 mac"></div>
+        </div>
+    </div>
+    <!-- 야후는 이 자리에서 js 사용하는것을 권장함 -->
+    <!--
+    <script src="js/DOM-API.js"></script>
+    <script src="js/DOM-Traversal.js"></script>
+    -->
+    <script>
+    var col_six = document.getElementsByClassName('col-6');
+    console.log('col_six', col_six,'length', col_six.length);
+    document.onclick = function(event) {
+        // console.log(event.target.nodeName === 'IMG'); // 내가 원하는 클릭을 잡아 부모에게 전달이 가능하다
+        console.log(event.target.nodeName.toLowerCase()); //nodeName -> h3, div 같은거
+        console.log(event.target.nodeValue);
+    }
+    // IE 8+
+    var hyperlink = query('a');
+    var row = query('.container .row');
+
+    var container = query('.container');
+
+    // IE 9+
+    var container_h3_2 = query('.container h3:nth-of-type(2)');
+    var container_h3_2_under = container.querySelector('h3:nth-of-type(2)');
+    var col_sixes = document.querySelectorAll('.col-6');
+    console.log(hyperlink, row, container_h3_2, col_sixes);
+    console.log(container_h3_2, container_h3_2_under);
+    
+
+    </script>
+</body>
+</html>

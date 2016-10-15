@@ -73,12 +73,18 @@ function tag(name, context){
 }
 
 function id(name){
-    if( typeof name !== 'string'){ throw new Error(' 전달된 인자는 문자 유형이어야만 합니다'); }
-    return context.getElementById(name);
+    validate(typeof name !== 'string', ' 전달된 인자는 문자 유형이어야만 합니다');
+    return document.getElementById(name);
 }
 
-function validation(condition, error_message){
+function validate(condition, error_message){
     if( condition ){
         throw new Error(error_message);
     }
+}
+
+function is_validate(condition, excute){
+    // call back pattern 어떤일이 완료가 되면 그때 실행시킨다
+    if( excute && typeof excute === 'function' ){ excute(); }
+    return condition ? true : false;
 }

@@ -210,15 +210,26 @@ function detectFeature(property, element){
 }
 detectFeature.dummy = document.createElement('div');
 
-function createEl(node_name, prop_id, prop_class){
+function createEl(node_name, properties){
     validate(!isString(node_name), 'node_name 파라미터는 반드시 문자열이 입력되어야 합니다');
-    validate(prop_id && !isString(prop_id), 'prop_id 파라미터는 문자열이 입력되어야 합니다');
-    validate(prop_class && !isString(prop_class), 'prop_class 파라미터는 문자열이 입력되어야 합니다');
+    validate(properties && !isObject(properties), 'properties는 객체 유형이 전달되어야 합니다.');
+    
     var created_el = document.createElement(node_name);
-    prop_id && created_el.setAttribute('id', prop_id);
-    prop_class && created_el.setAttribute('class', prop_class);
+
+    attrs(created_el, properties);
 
     return created_el;
+}
+
+function attrs(element, properties){
+
+    validate(!isElement(element), 'element는 요소노드여야 합니다.');
+    validate(!isObject(properties), 'properties는 객체 유형이여야 합니다.');
+
+    for(var prop in properties){
+        var value = properties[prop];
+        element.setAttribute(prop, value);
+    }
 }
 /*
  * 메모리제이션

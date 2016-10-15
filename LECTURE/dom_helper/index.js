@@ -10,7 +10,13 @@ function query(selector, context){
 
 function queryAll(selector, context){
     context = context || document;
-    __query_validation(selector, context);
+    if( is_validate(typeof selector !== 'string'), function(){
+        console.error('첫 번째 전달인자는 문자열로 전달해야 합니다');
+    });
+    if( is_validate(context.nodeType !== 1 && context.nodeType !== 9 ), function(){
+        console.error('첫 번째 전달인자는 문자열로 전달해야 합니다');
+    });
+    // __query_validation(selector, context);
     return context.querySelectorAll(selector);
 }
 
@@ -20,7 +26,6 @@ function __query_validation(selector, context){
         console.info('전달인자는 문자열로 전달해야 합니다');
         return null;
     }
-    console.log(selector, context, 's,c');
     
     if( context.nodeType !== 1 && context.nodeType !== 9 ){
         throw new Error('두번째 전달인자는 요소노드여야 합니다.');
@@ -78,6 +83,7 @@ function id(name){
 }
 
 function validate(condition, error_message){
+    // error is exist function will be stop
     if( condition ){
         throw new Error(error_message);
     }
@@ -87,4 +93,9 @@ function is_validate(condition, excute){
     // call back pattern 어떤일이 완료가 되면 그때 실행시킨다
     if( excute && typeof excute === 'function' ){ excute(); }
     return condition ? true : false;
+}
+
+// javascript 데이터 유형을 완벽하게 체크하기 위해서
+function isDataType(data){
+    return Object.prototype.toString.call(data).slice(8, -1).toLowerCase();
 }

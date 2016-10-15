@@ -130,17 +130,22 @@ detectFeature.dummy = document.createElement('div');
 
 // modernizer login
 function detectFeatures(properties, element){
-    element = (element && isElement(element)) || detectFeatures.root_element;
+    detectFeatures.element = (element && isElement(element)) || detectFeatures.root_element;
     validate( !isArray(properties), 'properties는 배열 유형이어야 합니다.');
 
     for( let property, i=properties.length; (property = properties[--i]);){
         console.log(property, detectFeature(property));
-        isValidate(detectFeature(property), function(){
-            element.classList.add(property);
-        }, function(){
-            element.classList.add('no-'+ property);
-        });
+        isValidate(detectFeature(property), detectFeatures.success, detectFeatures.fail);
     }
 }
 
 detectFeatures.root_element = document.documentElement; // <html>
+
+detectFeatures.success = function(){
+    detectFeatures.element.classList.add(detectFeatures.property);
+}
+detectFeatures.fail = function(){
+    detectFeatures.element.classList.add('no-' + detectFeatures.property);
+}
+detectFeatures.element = null;
+detectFeatures.property = null;

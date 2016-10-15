@@ -89,9 +89,10 @@ function validate(condition, error_message){
     }
 }
 
-function is_validate(condition, excute){
-    // call back pattern 어떤일이 완료가 되면 그때 실행시킨다
-    if( excute && typeof excute === 'function' ){ excute(); }
+function isValidate(condition, success, fail){
+    // callback pattern 어떤일이 완료가 되면 그때 실행시킨다
+    if(condition && success && isFunction(success) ){ success(); }
+    if(!condition && fail && isFunction(fail) ){ fail(); }
     return condition ? true : false;
 }
 
@@ -99,3 +100,47 @@ function is_validate(condition, excute){
 function isDataType(data){
     return Object.prototype.toString.call(data).slice(8, -1).toLowerCase();
 }
+
+function isFunction(data){ return isDataType(data) === 'function' }
+
+function isString(property){ return isDataType(property) === 'string'; }
+
+function isArray(data){ return isDataType(data) === 'array';}
+
+function isElement(node){
+    if(!node){return false;}
+    return node.nodeType === 1;
+}
+
+/* @function detectFeature 
+ * 이 기능이 브라우저에서 사용 가능한건가?
+ * */
+function detectFeature(property, element){
+    // element = element || detectFeature.dummy;
+    // validate( !isElement(element), '문서 요소 객체가 아닙니다');
+    // validate( element.nodeType !== 1, '문서 요소 객체가 아닙니다');
+    validate( !isString(property), '2번째 인자는 문자 유형이어야 합니다');
+   //  validate( isDataType(property) !== 'string', '2번째 인자는 문자 유형이어야 합니다');
+
+    return property in detectFeature.dummy.style;
+}
+
+// 한가지 ele만 체크하면 문제가 되지 않는것인가?
+detectFeature.dummy = document.createElement('div');
+
+// modernizer login
+function detectFeatures(properties, element){
+    element = (element && isElement(element)) || detectFeatures.root_element;
+    validate( !isArray(properties), 'properties는 배열 유형이어야 합니다.');
+
+    for( let property, i=properties.length; (property = properties[--i]);){
+        console.log(property, detectFeature(property));
+        isValidate(detectFeature(property), function(){
+            element.classList.add(property);
+        }, function(){
+            element.classList.add('no-'+ property);
+        });
+    }
+}
+
+detectFeatures.root_element = document.documentElement; // <html>

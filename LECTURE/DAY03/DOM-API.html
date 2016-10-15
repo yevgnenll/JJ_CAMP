@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>DOM API</title>
+    <script src="../dom_helper/index.js"></script>
 </head>
 <body>
     <div class="container">
@@ -43,13 +44,13 @@
         console.log(event.target.nodeValue);
     }
     // IE 8+
-    var hyperlink = document.querySelector('a');
-    var row = document.querySelector('.container .row');
+    var hyperlink = query('a');
+    var row = query('.container .row');
 
-    var container = document.querySelector('.container');
+    var container = query('.container');
 
     // IE 9+
-    var container_h3_2 = document.querySelector('.container h3:nth-of-type(2)');
+    var container_h3_2 = query('.container h3:nth-of-type(2)');
     var container_h3_2_under = container.querySelector('h3:nth-of-type(2)');
     var col_sixes = document.querySelectorAll('.col-6');
     console.log(hyperlink, row, container_h3_2, col_sixes);

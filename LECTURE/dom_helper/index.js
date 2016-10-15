@@ -82,6 +82,35 @@ function id(name){
     return document.getElementById(name);
 }
 
+function classEls(name, context){
+    validate(!isString(name), 'name 인자는 문자열이어야 합니다');
+    // 최신 웹브라우져 -> getElementByClassName()
+    if( !document.getElementsByClassName ){
+        return (((context && isElement(context)) && context) || document).getElementsByClassName(name);
+    } else {
+    // 그렇지 않다면
+    // 문서 객체를 순환하여 class 속성 값이 일치하는 집합을 배열로 반환하는 함수
+        var all_els = tag('*', document.body);
+        var els_length = all_els.length;
+        var el = null;
+        var class_name = '';
+        var filtered_class = [];
+        console.log(els_length);
+
+        var reg = new RegExp('(^|\\s)+' + name + '(\\s|$)+');
+
+        while(els_length--){
+            el = all_els[els_length];
+            class_name = el.getAttribute('class');
+            if(reg.test(class_name)){
+                filtered_class.push(el);
+            }
+        }
+        return filtered_class;
+    }
+    
+}
+
 function validate(condition, error_message){
     // error is exist function will be stop
     if( condition ){
@@ -100,10 +129,28 @@ function isValidate(condition, success, fail){
 function isDataType(data){
     return Object.prototype.toString.call(data).slice(8, -1).toLowerCase();
 }
+function isNumber(data){ return isDataType(data) === 'number';}
 
-function isFunction(data){ return isDataType(data) === 'function' }
+function isBoolean(data){ return isDataType(data) === 'boolean'; }
+
+function isObject(data){ return isDataType(data) === 'object'; }
+
+function isEmptyObject(data){ 
+    // 속정이 존재하는지 확인
+    // 속성이 존쟁하지 않는다면? 텅빈 객체()
+    var prop_length = 0;
+    var d = 0;
+    for(var prop in data ){
+        prop_length++;
+        ++d;
+    }
+    console.log(prop_length, 'd', d);
+    return isObject(data) && !prop_length;
+}
 
 function isString(property){ return isDataType(property) === 'string'; }
+
+function isFunction(data){ return isDataType(data) === 'function' }
 
 function isArray(data){ return isDataType(data) === 'array';}
 
@@ -131,7 +178,15 @@ var detectFeatures = (function(){
     };
     function _detectFeature(properties, element){
 
-        el = (el && isElement(element)) || root_element;
+        // el = ((element && isElement(element)) && element) || root_element;
+        // a = true && 'hi';        a -> 'hi
+        // a = false && 'hello';    a -> false
+        // -> 아래가 정석
+        if( element && isElement(element)){
+            el = element;
+        } else {
+            el = root_element;
+        }
         validate( !isArray(properties), 'properties는 배열 유형이어야 합니다.');
         for( var property, i=properties.length; (property = properties[--i]);){
             prop = property
@@ -154,6 +209,17 @@ function detectFeature(property, element){
     return property in detectFeature.dummy.style;
 }
 detectFeature.dummy = document.createElement('div');
+
+function createEl(node_name, prop_id, prop_class){
+    validate(!isString(node_name), 'node_name 파라미터는 반드시 문자열이 입력되어야 합니다');
+    validate(prop_id && !isString(prop_id), 'prop_id 파라미터는 문자열이 입력되어야 합니다');
+    validate(prop_class && !isString(prop_class), 'prop_class 파라미터는 문자열이 입력되어야 합니다');
+    var created_el = document.createElement(node_name);
+    prop_id && created_el.setAttribute('id', prop_id);
+    prop_class && created_el.setAttribute('class', prop_class);
+
+    return created_el;
+}
 /*
  * 메모리제이션
 

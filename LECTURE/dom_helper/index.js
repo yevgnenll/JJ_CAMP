@@ -163,6 +163,7 @@ function isElement(node){
 
 /* @function detectFeature 
  * 이 기능이 브라우저에서 사용 가능한건가?
+ * animation, flex 등의 기능이 사용가능하다면 class name에 가능 유무를 나타낸다.
  * */
 // 클로져
 var detectFeatures = (function(){

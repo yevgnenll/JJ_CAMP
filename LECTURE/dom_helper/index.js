@@ -10,18 +10,11 @@ function query(selector, context){
 
 function queryAll(selector, context){
     context = context || document;
-    if( is_validate(typeof selector !== 'string'), function(){
-        console.error('첫 번째 전달인자는 문자열로 전달해야 합니다');
-    });
-    if( is_validate(context.nodeType !== 1 && context.nodeType !== 9 ), function(){
-        console.error('첫 번째 전달인자는 문자열로 전달해야 합니다');
-    });
-    // __query_validation(selector, context);
+    __query_validation(selector, context);
     return context.querySelectorAll(selector);
 }
 
 function __query_validation(selector, context){
-    // validate argument
     if( typeof selector !== 'string'){
         console.info('전달인자는 문자열로 전달해야 합니다');
         return null;
@@ -29,8 +22,6 @@ function __query_validation(selector, context){
     
     if( context.nodeType !== 1 && context.nodeType !== 9 ){
         throw new Error('두번째 전달인자는 요소노드여야 합니다.');
-        // console.error('두번째 전달인자는 요소노드여야 합니다.');
-        // return null;
     }
 
     return context;
@@ -66,14 +57,9 @@ function _query(selector, context){
 }
 
 function tag(name, context){
-    if( typeof name !== 'string'){ throw new Error(' 전달된 인자는 문자 유형이어야만 합니다'); }
-    if( context && context.nodeType !== document.ELEMENT_NODE ){
-        throw new Error('context 객체는 문서 요소 객체여야만 합니다.');
-    }
-    if(!context){
-        context = document;
-    }
-
+    validate(typeof name !== 'string', '전달된 인자는 문자 유형이어야만 합니다');
+    context && validate(context.nodeType !== document.ELEMENT_NODE, 'context 객체는 문서 요소 객체여야만 합니다.');
+    context = context || document;
     return context.getElementsByTagName(name);
 }
 
@@ -82,34 +68,50 @@ function id(name){
     return document.getElementById(name);
 }
 
-function classEls(name, context){
-    validate(!isString(name), 'name 인자는 문자열이어야 합니다');
-    // 최신 웹브라우져 -> getElementByClassName()
+var classEls = (function(){
+    var _classEls = null;
+
     if( !document.getElementsByClassName ){
-        return (((context && isElement(context)) && context) || document).getElementsByClassName(name);
+        _classEls = function(name, context){
+            validate(!isString(name), 'name 인자는 문자열이어야 합니다');
+            context = (context && isElement(context)) && context || document;
+            return context.getElementsByClassName(name);
+        };
     } else {
-    // 그렇지 않다면
-    // 문서 객체를 순환하여 class 속성 값이 일치하는 집합을 배열로 반환하는 함수
-        var all_els = tag('*', document.body);
-        var els_length = all_els.length;
-        var el = null;
-        var class_name = '';
-        var filtered_class = [];
-        console.log(els_length);
+        /* 모든 elements를 가져온다
+         * 거기서 class가 있다면 name이 포함된 class인지 확인한다
+         * coffee 라는 클래스를 찾는다면 cof, co 는 검색이 되면 안되므로
+         * regular expression을 사용한다
+         * 해당하는것만 모아서 array롤 반환한다
+         * */
+        _classEls = function(name, context){
+            validate(!isString(name), 'name 인자는 문자열이어야 합니다');
+            // 1. get all elemnts
+            var elements = tag('*');
+            // 2. get elements' length
+            var elements_length = elements.length;
+            // 3. each element
+            var element = null;
+            // 4. class name if exists
+            var class_name = null;
+            // 5. filter class name with reg expression
+            var reg = new RegExp('(^|\\s)+' + name + '($|\\s)+');
+            // 6. result array
+            var result = [];
 
-        var reg = new RegExp('(^|\\s)+' + name + '(\\s|$)+');
-
-        while(els_length--){
-            el = all_els[els_length];
-            class_name = el.getAttribute('class');
-            if(reg.test(class_name)){
-                filtered_class.push(el);
+            while(elements_length--){
+                element = elements[elements_length];
+                class_name = element.getAttribute('class');
+                if(reg.test(class_name)){
+                    result.push(element);
+                }
             }
+            return result;
         }
-        return filtered_class;
     }
-    
-}
+
+    return _classEls;
+}());
 
 function validate(condition, error_message){
     // error is exist function will be stop

@@ -233,15 +233,25 @@ function detectFeature(property, element){
 }
 detectFeature.dummy = document.createElement('div');
 
-function createEl(node_name, properties){
+
+function createEl(node_name, properties, contents){
     validate(!isString(node_name), 'node_name 파라미터는 반드시 문자열이 입력되어야 합니다');
     validate(properties && !isObject(properties), 'properties는 객체 유형이 전달되어야 합니다.');
     
     var created_el = document.createElement(node_name);
+    properties && attrs(created_el, properties);
 
-    attrs(created_el, properties);
+    if(contents){
+        var createed_text = createText(contents);
+        created_el.appendChild(createed_text);
+    } 
 
     return created_el;
+}
+
+function createText(content){
+    validate(!isString(content), '텍스트노들르 생성하기 위한 문자열을 이력하여야 합니다');
+    return document.createTextNode(content);
 }
 
 function attrs(element, properties){

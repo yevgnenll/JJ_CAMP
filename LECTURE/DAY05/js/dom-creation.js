@@ -4,4 +4,12 @@
 
     cLog('this === window: %c' + (this === window));
 
+    var container_attr = {
+        'class': 'container'
+    };
+
+    var container = createEl('div', container_attr, 'this is container element.');
+
+    console.log(container);
+
 }(this));

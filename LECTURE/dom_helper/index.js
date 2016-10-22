@@ -1,3 +1,20 @@
+
+/** 
+ * function cLog 사용자 정의 CSS 스타일을 가미한
+ * console.log() */
+function cLog(input, console_style){
+
+    // input은 문자열 이어야 한다는 것을 검증
+    validate(!isString(input), '문자열을 입력해야 합니다');
+    // option: console_style
+    // default
+    console_style = console_style || cLog.styles;
+
+    console.log(input, console_style);
+};
+
+cLog.styles = 'color #fe4940; font-size: 1.2rem;';
+
 /*
  * @function query() 
  * */
@@ -234,31 +251,3 @@ function attrs(element, properties){
         element.setAttribute(prop, value);
     }
 }
-/*
- * 메모리제이션
-
-// 한가지 ele만 체크하면 문제가 되지 않는것인가?
-
-
-// modernizer login
-function detectFeatures(properties, element){
-    detectFeatures.element = (element && isElement(element)) || detectFeatures.root_element;
-    validate( !isArray(properties), 'properties는 배열 유형이어야 합니다.');
-
-    for( let property, i=properties.length; (property = properties[--i]);){
-        detectFeatures.property = property;
-        isValidate(detectFeature(property), detectFeatures.success, detectFeatures.fail);
-    }
-}
-
-detectFeatures.root_element = document.documentElement; // <html>
-
-detectFeatures.success = function(){
-    detectFeatures.element.classList.add(detectFeatures.property);
-}
-detectFeatures.fail = function(){
-    detectFeatures.element.classList.add('no-' + detectFeatures.property);
-}
-detectFeatures.element = null;
-detectFeatures.property = null;
-*/

@@ -1,4 +1,3 @@
-
 /** 
  * function cLog 사용자 정의 CSS 스타일을 가미한
  * console.log() */
@@ -6,11 +5,15 @@ function cLog(input, console_style){
 
     // input은 문자열 이어야 한다는 것을 검증
     validate(!isString(input), '문자열을 입력해야 합니다');
-    // option: console_style
-    // default
-    console_style = console_style || cLog.styles;
 
-    console.log(input, console_style);
+    // option: console_style
+    // default style
+    console_style = console_style || cLog.styles;
+    if(input.indexOf('%c') > -1){
+        console.log(input, console_style);
+    } else {
+        console.log(' %c' + input, console_style);
+    }
 };
 
 cLog.styles = 'color #fe4940; font-size: 1.2rem;';

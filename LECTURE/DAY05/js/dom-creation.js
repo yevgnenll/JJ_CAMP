@@ -8,7 +8,15 @@
         'class': 'container'
     };
 
-    var container = createEl('div', container_attr, 'this is container element.');
+    var container = createEl({
+        'element': 'div',
+        'text': 'this is a content',
+        'attr': container_attr,
+        'finish': function(){ append(query('body'), this);}
+    });
+
+    var body = query('body'); // why null?
+    console.log(body);
 
     console.log(container);
 

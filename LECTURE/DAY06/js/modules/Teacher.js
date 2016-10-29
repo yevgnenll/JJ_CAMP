@@ -14,10 +14,10 @@
 
     };
 
-    global.Teacher = Teacher;
+    yl.Teacher = Teacher;
 })(this, (this.yl = this.yl || {}));
 
 
-var teacher_cocoa = new Teacher(cocoaman,'코코아 열매 요리하기', '5년', '코코아 재배');
+var teacher_cocoa = new yl.Teacher(cocoaman,'코코아 열매 요리하기', '5년', '코코아 재배');
 
 console.log(teacher_cocoa);

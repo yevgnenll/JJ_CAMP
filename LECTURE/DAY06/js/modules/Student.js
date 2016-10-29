@@ -24,11 +24,11 @@
 
     };
 
-    global.Student = Student;
+    yl.Student = Student;
 })(this, (this.yl = this.yl || {}));
 
 
-var student_cocoa = new Student(
+var student_cocoa = new yl.Student(
     cocoaman,
     '2학년',
     '2020년',

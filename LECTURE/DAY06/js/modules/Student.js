@@ -1,5 +1,5 @@
 (function(global){
-    function Student(
+    var Student = function(
         person,
         grade,
         graduation,
@@ -16,7 +16,15 @@
         this.graduation = graduation;
         this.like_subject = like_subject;
         this.hate_subject = hate_subject;
+        this.studying = studying;
     };
+
+    function studying(how){
+        return this.person.name + '은' + how + ' 공부를 한다.';
+
+    };
+
+    global.Student = Student;
 })(this);
 
 

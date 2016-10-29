@@ -1,4 +1,4 @@
-(function(global){
+(function(global, yl){
     var Student = function(
         person,
         grade,
@@ -6,7 +6,7 @@
         like_subject,
         hate_subject
     ){
-        if(!(person instanceof Person)){
+        if(!(person instanceof yl.Person)){
             throw new Error('첫 번째 인자는 Person 생성자를 사용하여 생성된 객체여야 합니다');
 
         }
@@ -25,7 +25,7 @@
     };
 
     global.Student = Student;
-})(this);
+})(this, (this.yl = this.yl || {}));
 
 
 var student_cocoa = new Student(

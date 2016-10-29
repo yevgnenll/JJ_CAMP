@@ -1,7 +1,7 @@
 // javascript module pattern
 // javascript는 모듈이 존재하지 않았기 때문에 이와같은 방법을 사용하여 모듈생성
 // ES6에서는 공식으로 모듈을 언어 차원에서 지원한다.
-(function(global){
+(function(global, yl){
     'use strict';
 
     // 사람을 만들고 싶다
@@ -38,12 +38,13 @@
         return this.name + '은' + time + '만큼 잤다.';
     };
 
-    global.Person = Person;
+    yl.Person = Person;
 
-})(this);
+})(this, (this.yl = this.yl || {}));
+// yl이 없으면 빈 객체가 yl로 온다
 
 
-var cocoaman = new Person(
+var cocoaman = new yl.Person(
     '코코아',
     '남성',
     23,

@@ -292,3 +292,46 @@ function append(parent_node, child_node){
 function appendTo(child_node, parent_node){
     append(parent_node, child_node);
 }
+
+function insertBefore(insert_node, target_node){
+
+    validate(!isElement(insert_node) || !isElement(target_node), '전달 인자는 모두 요소노드여야 합니다');
+
+    target_node.parentNode.insertBefore(insert_node, target_node);
+}
+
+function before(target_node, insert_node){
+    // validation은 insertBefore에서 실행됨
+    insertBefore(insert_node, target_node);
+}
+
+function insert(insert_node, target_node){
+
+    console.log(insert_node, target_node);
+    validate(!isElement(insert_node) || !isElement(target_node), '전달 인자는 모두 요소노드여야 합니다');
+
+    var next = target_node.nextSibling;
+    while(isElement(next)){
+        if(!isElement(next)){
+            next = next.nextSibling;
+        }
+    }
+    if(!isElement(next)){
+        append(query('body'), insert_node);
+    } else {
+        insertBefore(insert_node, next);
+    }
+
+}
+
+function insertAfter(insert_node, target_node){
+
+    validate(!isElement(insert_node) || !isElement(target_node), '전달 인자는 모두 요소노드여야 합니다');   
+    var next_node = target_node;
+    do{
+        next_node = next_node.nextSibling;;
+    } while( next_node && !isElement(next_node));
+
+    next_node ? insertBefore(insert_node, next_node) : appendTo(insert_node, target_node.parentNode);
+
+}

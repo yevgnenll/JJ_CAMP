@@ -6,7 +6,25 @@
     <title></title>
 </head>
 <body>
+
+    <div class="container"></div>
     
     <script src="js/dom-create-manipulation.js"></script>
+    <script>
+        var target_node = query('.container');
+        var target_parent = target_node.parentNode;
+        var insert_node;
+        insert_node = createEl('main', {
+            'role': 'main',
+            'class': 'main-content'
+        }, 'Main Area');
+        // insertBefore(insert_node, target_node);
+        // target_parent.insertBefore(insert_node, target_node);
+        // insertAfter(insert_node, query('#target'));
+        window.setTimeout(function(){
+            insertAfter(insert_node, query('#target'));
+        }, 1000);
+    </script>
+    <div id="target"> target node </div>
 </body>
 </html>

@@ -65,3 +65,14 @@ console.log('%c---------------------------------------', 'color: #343434');
 // javascript 세상의 모든 객체는 .constructor 속성을 가진다
 // 사용자가 정의 한 객체 역시 .constructor 속성을 가진다
 console.log(kor, chn);
+
+
+function Biology(state){
+    this.state = state;
+}
+
+function Human(Biology, sex, age){
+    this.sex = sex;
+    this.age = age;
+}
+

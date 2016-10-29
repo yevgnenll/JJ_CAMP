@@ -35,5 +35,5 @@ var student_cocoa = new yl.Student(
     '영어',
     '수학'
 );
-
 console.log('student_cocoa', student_cocoa);
+

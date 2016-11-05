@@ -387,10 +387,37 @@ this.DOM_Helper = (function(global){
         return Array.prototype.slice.call(like_arr_obj, 0);
         // return [].slice.call(like_arr_obj, 0); // 위의 코드와 같다
     }
+    var each = (function(){ 
+
+        var _each;
+        
+        if( Array.prototype.forEach){
+            _each = function(data, callback){
+                console.log('dddd');
+                makeArray(data).forEach(function(item, idx, data){
+                    console.log(item, idx, data);
+                    callback.call(data, idx, item);
+                });
+            };
+        } else {
+            console.log(data, '---');
+            // 구형 브라우져
+            _each = function(data, callback){
+                for(var i=0, l=data.length; i<l; i++){
+                    var item = data[i];
+                    callback.call(data, i, item);
+                }
+            };
+        }
+
+        return _each;
+        
+    })();
 
     /** @function each() */
-    function each(data, callback) {
+    function each_backup(data, callback) {
 
+        data = makeArray(data);
         // console.log('data:', data);
         // console.log('callback:', callback);
         if( data.forEach ){

@@ -57,8 +57,8 @@
   $.each(row_links, function(index, link){
       'use strict';
       link.onclick = function(){
-          assignParentActiveClass();
-          stylingParentChangeBGColor();
+          assignParentActiveClass.call(this);
+          stylingParentChangeBGColor.call(this);
       };
   });
 

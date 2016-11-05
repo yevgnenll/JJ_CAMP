@@ -44,12 +44,14 @@
   rows = util.makeArray(rows);
   console.log(util.isNodeList(rows)); // false
   console.log(util.isArray(rows)); // true
-  // $.each(rows, function(row, index, rows){
+  $.each(rows, function(row, index, rows){
   //   // row    // <div class="row">
   //   // index  // 0
   //   // rows   // nodeList
-  // });
+    console.log(arguments);    
+  });
 })(this, this.DOM_Helper);
+// this.DOM_Helper === $ 로 만든것
 </script>
 </body>
 </html>

@@ -204,8 +204,13 @@ this.DOM_Helper = (function(global){
         return node.nodeType === 3;
     }
     /** @function isDocument() */
-        function isDocument(node) {
+    function isDocument(node) {
         return node.nodeType === 9;
+    }
+
+	/** @function isArguments() */
+    function isArguments(obj) {
+        return isDataType(obj) === 'arguments';
     }
 
     /* @function detectFeature 
@@ -359,50 +364,74 @@ this.DOM_Helper = (function(global){
     }
 
     /** @function makeArray() */
-      function makeArray(like_arr_obj) {
+    function makeArray(like_arr_obj) {
         // 배열과 유사한 데이터 arguments, nodeList를
         // 배열로 변경하려면? 어떤 로직이 필요할까요?
 
-        validate ( !isNodeList(like_arr_obj), 'nodeList를 전달해야 합니다.' );
+        console.log(like_arr_obj);
+        validate ( 
+            !isNodeList(like_arr_obj) && !isArguments(like_arr_obj),
+            'nodeList 또는 arguments 객체를 전달해야 합니다.'
+        );
 
         // 방법 1. 복습
+        /*
         var converted_array = [];
         for ( var i=0, l=like_arr_obj.length; i<l; i++ ) {
-          converted_array.push(like_arr_obj[i]);
+        converted_array.push(like_arr_obj[i]);
         }
         return converted_array;
+        */
+
         // 방법 2. 네이티브 배열의 기술을 활용
-      }
+        return Array.prototype.slice.call(like_arr_obj, 0);
+        // return [].slice.call(like_arr_obj, 0); // 위의 코드와 같다
+    }
 
-      /** @function each() */
-      function each(data, callback) {
-        console.log('data:', data);
-        console.log('callback:', callback);
-      }
+    /** @function each() */
+    function each(data, callback) {
 
-      // ------------------------------------------------------
+        // console.log('data:', data);
+        // console.log('callback:', callback);
+        if( data.forEach ){
+            data.forEach(function(item, idx){
+                // call, apply 차이
+                // callback.call(data, arguments[0], arguments[1], ...);
+                callback.call(data, idx, item, data);
+                // callback.apply(data, arguments);
+            });
+        } else {
+            for(var i=0, l=data.length; i<l; i++){
+                var item = data[i];
+                // first parameter data is context
+                callback.call(data, i, item, data);
+                
+            }
+        }
+    }
 
-      // 클로저 패턴(객체를 반환)
-      return {
+    // ------------------------------------------------------
+    // 클로저 패턴(객체를 반환)
+    return {
         'info': {
-          'version': version,
-          'author': author
+        'version': version,
+        'author': author
         },
         'util': {
-          'cLog': cLog,
-          'isNumber': isNumber,
-          'isString': isString,
-          'isBoolean': isBoolean,
-          'isFunction': isFunction,
-          'isArray': isArray,
-          'isObject': isObject,
-          'isEmptyObject': isEmptyObject,
-          'isElement': isElement,
-          'isNodeList': isNodeList,
-          'isTextNode': isTextNode,
-          'isDocument': isDocument,
-          'validate': validate,
-          'makeArray': makeArray,
+        'cLog': cLog,
+        'isNumber': isNumber,
+        'isString': isString,
+        'isBoolean': isBoolean,
+        'isFunction': isFunction,
+        'isArray': isArray,
+        'isObject': isObject,
+        'isEmptyObject': isEmptyObject,
+        'isElement': isElement,
+        'isNodeList': isNodeList,
+        'isTextNode': isTextNode,
+        'isDocument': isDocument,
+        'validate': validate,
+        'makeArray': makeArray,
         },
         'id'       : id,
         'tag'      : tag,
@@ -410,6 +439,6 @@ this.DOM_Helper = (function(global){
         'queryAll' : queryAll,
         'query'    : query,
         'each'     : each,
-      };
+    };
 
 }(this));

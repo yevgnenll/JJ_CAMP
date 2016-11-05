@@ -51,7 +51,15 @@
   //   // index  // 0
   //   // rows   // nodeList
     console.log('aa', arguments);
-    row.innerHTML = '<p>this is paragraph 0' + index + '</p>';
+    // row.innerHTML = '<p>this is paragraph 0' + index + '</p>';
+  });
+
+  $.each(row_links, function(index, link){
+      'use strict';
+      link.onclick = function(){
+          assignParentActiveClass();
+          stylingParentChangeBGColor();
+      };
   });
 
   function assignParentActiveClass(){

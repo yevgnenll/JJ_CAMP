@@ -335,3 +335,57 @@ function insertAfter(insert_node, target_node){
     next_node ? insertBefore(insert_node, next_node) : appendTo(insert_node, target_node.parentNode);
 
 }
+
+/** @function makeArray() */
+  function makeArray(like_arr_obj) {
+    // 배열과 유사한 데이터 arguments, nodeList를
+    // 배열로 변경하려면? 어떤 로직이 필요할까요?
+
+    validate ( !isNodeList(like_arr_obj), 'nodeList를 전달해야 합니다.' );
+
+    // 방법 1. 복습
+    var converted_array = [];
+    for ( var i=0, l=like_arr_obj.length; i<l; i++ ) {
+      converted_array.push(like_arr_obj[i]);
+    }
+    return converted_array;
+    // 방법 2. 네이티브 배열의 기술을 활용
+  }
+
+  /** @function each() */
+  function each(data, callback) {
+    console.log('data:', data);
+    console.log('callback:', callback);
+  }
+
+  // ------------------------------------------------------
+
+  // 클로저 패턴(객체를 반환)
+  return {
+    'info': {
+      'version': version,
+      'author': author
+    },
+    'util': {
+      'cLog': cLog,
+      'isNumber': isNumber,
+      'isString': isString,
+      'isBoolean': isBoolean,
+      'isFunction': isFunction,
+      'isArray': isArray,
+      'isObject': isObject,
+      'isEmptyObject': isEmptyObject,
+      'isElement': isElement,
+      'isNodeList': isNodeList,
+      'isTextNode': isTextNode,
+      'isDocument': isDocument,
+      'validate': validate,
+      'makeArray': makeArray,
+    },
+    'id'       : id,
+    'tag'      : tag,
+    'classEls' : classEls,
+    'queryAll' : queryAll,
+    'query'    : query,
+    'each'     : each,
+  };

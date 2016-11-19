@@ -7,6 +7,7 @@
 var square = require('./modules/square.js');
 var factorial = require('./modules/factorial.js');
 var capitalize = require('./modules/capitalize.js');
+var camelcase = require('./modules/camelcase.js');
 
 // var temp = 'app.js';
 // debugger // F8을 누르면 실행
@@ -14,6 +15,8 @@ var capitalize = require('./modules/capitalize.js');
 var s_result = square(3);
 var result = factorial(s_result);
 var word = capitalize('hi this is seungkwon');
+var camel = camelcase('design school front end developer');
 
 console.log(s_result, result);
 console.log(word);
+console.log(camel);

@@ -7,8 +7,10 @@
 var square = require('./modules/square.js');
 var factorial = require('./modules/factorial.js');
 
-console.log(typeof square, typeof factorial);
+// var temp = 'app.js';
+// debugger // F8을 누르면 실행
+
 var s_result = square(3);
 var result = factorial(s_result);
 
-console.log(s_result, result);
+console.log(s_result, result, temp);

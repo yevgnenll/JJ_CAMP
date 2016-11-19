@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+  <meta
+    http-equiv="X-UA-Compatible"
+    content="IE=Edge">
+  <meta charset="UTF-8">
+  <title>jQuery와 유사한 라이브러리</title>
+  <style>
+    a {
+      color: #000;
+      text-decoration: none;
+    }
+    .activation {
+      color: #7045cf;
+    }
+    .activation:focus {
+      outline: none;
+      outline-offset: 5px;
+      box-shadow: 0 0 0 3px hsla(199, 100%, 60%, 0.45);
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="demo">
+    <ul>
+      <li><a class="demo-link" href="">link 1m21</a></li>
+      <li><a href="">link 2m22</a></li>
+      <li><a href="">link 3m23</a></li>
+      <li><a class="demo-link" href="">link 4m24</a></li>
+      <li><a href="">link 5m25</a></li>
+      <li><a class="demo-link" href="">link 6m26</a></li>
+    </ul>
+  </nav>
+
+<script src="Element.prototype.js"></script>
+<script src="like-jquery.js"></script>
+<script>
+(function(global){
+  'use strict';
+
+  var nav = document.querySelector('nav');
+
+  // 부모 요소에 이벤트를 한 번 걸어 줌에 따라 모든 자손들은 이벤트가 전파
+  // 이를 `이벤트 위임`이라고 부른다.
+  nav.addEventListener('click', function(e) {
+    var node_name = e.target.nodeName.toLowerCase();
+    console.log(node_name);
+    // 브라우저 기본 동작 차단
+    if (node_name === 'a') { e.preventDefault(); }
+    e.target.radioClass('activation');
+    // console.log('this:', this);
+    // console.log('e.target:', e.target);
+    // console.log('e.currentTarget:', e.currentTarget);
+  });
+
+  // var li_first = nav.addClass('gnb').querySelector('ul').addClass('clearfix reset-list').querySelectorAll('li').item(1).addClass('active');
+
+  // li_first.addEventListener('click', function(event) {
+  //   if ( event.target.nodeName === 'A' ) { event.preventDefault(); }
+  //   console.log(this.hasClass('active'));
+  //   // console.log('this:', this);
+  //   // console.log('event.target:', event.target);
+  //   // console.log('event.currentTarget:', event.currentTarget);
+  //   // event.target.toggleClass('active');
+  // }, false);
+
+
+})(this);
+(function(global, $){
+  'use strict';
+
+  // ------------------------------------------------------------
+  // $ 모듈은 함수이다.
+  // console.log( 'typeof $:', typeof $ );
+  // ------------------------------------------------------------
+  // 생성한 인스턴스의 생성자를 확인해보자.
+  // var $instance = new $();
+  // console.log( '$instance:', $instance );
+  // console.log( '$instance.constructor === $: ', $instance.constructor === $ );
+  // ------------------------------------------------------------
+  // new 키워드를 함께 사용하지 않고도 객체를 생성하게 하려면?
+  // new를 강제화시키는 패턴을 사용한다.
+  var $demo = $('.demo');
+  var $demo_links = $('.demo a');
+  // 객체지향 언어를 사용하는 프로그래밍의 특징
+  // 1. 추상화(Abstract)
+  // 2. 캡슐화(Encapsuration) [x] => IIFE 패턴 흉내
+  // 3. 상속(Inheritance)
+  // 4. 다형성(Polymorphism) [x] => ....
+  // console.log($demo.elements);
+  // console.log($demo_links);
+
+  $demo_links
+    .addClass('hey')
+    .addClass('you')
+    .addClass('demo-link')
+    .removeClass('you');
+
+  $demo_links
+    .removeClass('demo-link');
+
+}); // (this, likeJq)
+</script>
+</body>
+</html>

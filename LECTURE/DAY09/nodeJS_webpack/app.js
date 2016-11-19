@@ -13,4 +13,4 @@ var factorial = require('./modules/factorial.js');
 var s_result = square(3);
 var result = factorial(s_result);
 
-console.log(s_result, result, temp);
+console.log(s_result, result);

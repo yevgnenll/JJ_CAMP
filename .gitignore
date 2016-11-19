@@ -88,3 +88,4 @@ node_modules
 .sass-cache
 *.css.map
 *.sw[op]
+node_modules/*

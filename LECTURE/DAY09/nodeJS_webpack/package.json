@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "Node.js 환경에서 Webpack을 사용하여 ECMAScript 2015(ES6) 사용하기",
   "scripts": {
-    "start": ""
+    "start": "webpack-dev-server --open --port 8000",
+    "server": "webpack-dev-server --inline --port 8000",
+    "build": "webpack -p",
+    "clear": "rm -rf ./dist ./src/public/assets"
   },
   "keywords": [
     "Node.js",

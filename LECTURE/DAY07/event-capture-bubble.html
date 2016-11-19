@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta charset="UTF-8">
+  <title>이벤트 캡쳐 VS 버블</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    div {
+      position: relative;
+      border: 1px solid currentColor;
+      padding: 3rem;
+      color: #a9a9a9;
+      background: hsla(208, 6%, 42%, 0.24);
+    }
+    div::before {
+      position: absolute;
+      top: 15px;
+      left: 20px;
+      content: attr(class);
+      color: #101010;
+    }
+    .grand-child {
+      width: 200px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="parent">
+      <div class="child">
+        <div class="grand-child"></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+(function(global){
+  'use strict';
+  // 이벤트 Capture VS Bubble
+
+  var all_divs = document.querySelectorAll('div');
+  var using_capture = true;
+  var confirmEventPropagation = function(event) {
+    console.log('this:', this);
+    console.log('event.target:', event.target);
+    console.log('event.currentTarget:', event.currentTarget);
+    console.log('%c------------------------------', 'color: #3d9a21');
+
+    var class_name = event.target.getAttribute('class');
+    if ( class_name === 'grand-child' ) {
+      // 버블링: 부모까지 전파되는 이벤트를 차단하라.
+      event.stopPropagation();
+      // 즉각 전파 중지!!!! 동일한 이벤트 타겟에 걸린 다른 함수도 중지!!!
+      // event.stopImmediatePropagation();
+    }
+  };
+
+  var anotherEventAction = function() {
+    console.log('anotherEventAction');
+  };
+
+  // chrome 다른 브라우저에서는 이 기능이 불가능함
+  // all_divs.forEach(function(div, idx) {
+  //   console.log('div:', div);
+  // });
+
+  [].forEach.call(all_divs, function(div, idx) {
+    div.addEventListener('click', confirmEventPropagation, using_capture);
+    div.addEventListener('click', anotherEventAction, using_capture);
+    // if third param is true -> capture on
+    // if third param is false -> bubble on
+  });
+
+})(this);
+</script>
+</body>
+</html>

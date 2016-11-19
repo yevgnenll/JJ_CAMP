@@ -28,6 +28,16 @@ var webpack_config = {
             {
                 'test': /\.(sass|scss)$/,
                 'loader': 'style-loader!css-loader!sass-loader'
+            },
+            // Babel (EC6, ECMAScript 2015) -> JS 파일 ㅍ변환 -> 번들링
+            {
+                'test': /\.js$/,
+                'exclude': /node_modules/, // rex
+                // 'loader': 'babel-loader?presets[]=2015'
+                'loader': 'babel-loader', // 'babel' 로 loader 생략 가능
+                'query':{
+                    'presets': ['es2015']
+                }
             }
         ]
     },

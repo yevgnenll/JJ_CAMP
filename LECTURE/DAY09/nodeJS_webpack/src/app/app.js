@@ -1,6 +1,9 @@
 /*! app.js © yamoo9.net, 2016 */
 'use strict';
 
+// css -----------------------------------------------
+require('./css/app.scss');
+
 // 의존 모듈(square, factorial) 로드
 // server side javascript env. module load
 // commonJs 방법 모듈 로드

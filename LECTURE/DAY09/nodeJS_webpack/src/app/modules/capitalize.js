@@ -7,4 +7,8 @@ function capitalize(text){
     }).join(' ');
 }
 
+capitalize = (text) => {
+
+}
+
 module.exports = capitalize;

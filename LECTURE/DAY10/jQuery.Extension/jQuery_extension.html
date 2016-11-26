@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta charset="UTF-8">
+  <title>jQuery 확장: 커스텀 유틸리티/인스턴스/필터 메소드</title>
+  <!-- CDN -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <!-- Network 불안정 문제로 정상적으로 CDN 데이터를 로드하지 못했을 때는 대체 방법으로 로컬 jQuery 사용하겠다. -->
+  <script>window.jQuery || document.writeln('<script src="./lib/jquery.min.js"><\/script>');</script>
+  <!-- jquery 확장모듈 -->
+  <script src="./utilities/jquery.string.includes.js"></script>
+  <script src="./utilities/jquery.string.repeat.js"></script>
+</head>
+<body>
+    <p class='compare-string'>하이 님들 커피 라라라라라</p>
+    <div class="assign-repeat-zone">
+        <label>repeat <input type="text" class="repeat-str"></label>
+        <label>count <input type="number" class="repeat-count" step="1" min="1" max="10" value="5"></label>
+        <button type="button" class="process-btn">processing</button>
+    </div>
+<script>
+(function(global, $){
+    'use strict';
+
+    var $compare = $('.compare-string');
+    var include_text = $.includes($compare.text(), '하이');
+
+    console.log('include_text_hi', include_text);
+
+    console.log('----------------------------');
+
+    var $repeat_zone = $('.assign-repeat-zone');
+    var $repeat_str = $('.repeat-str', $repeat_zone);
+    var $repeat_count = $repeat_zone.find('.repeat-count');
+    var $repeat_btn = $repeat_zone.children('button');
+
+    var processingRepeatProcess = function(){
+        var input_str = $repeat_str.val();
+        var input_count = $repeat_count.val();
+
+        var procssed_str = $.repeat( input_str, input_count);
+        $compare.text(procssed_str);
+    };
+
+    $repeat_btn.on('click', processingRepeatProcess);
+})(this, this.jQuery);
+</script>
+</body>
+</html>
